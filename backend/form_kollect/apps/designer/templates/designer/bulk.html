@@ -1,0 +1,10 @@
+<h1>Add Bulk Form</h1>
+<form method="post" action="{% url 'designer-show-bulk-forms' %}">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    {% for form in formset %}
+        {{ form }}
+        <br />
+    {% endfor %}
+    <input type="submit" value="Create Bulk Forms">
+</form>

@@ -1,0 +1,10 @@
+<h1>Show Bulk Form</h1>
+<form>
+    {% csrf_token %}
+    {{ formset.management_form }}
+    {% for form in formset %}
+        {{ form.as_p }}
+        <br />
+    {% endfor %}
+<!--    <input type="submit" value="Create Bulk Forms">-->
+</form>

@@ -1,0 +1,35 @@
+django==3.0.7             # via -r requirements.in (line 1)
+python-dotenv==0.11.0     # via -r requirements.in (line 3)
+pytz==2019.3              # via django
+sqlparse==0.3.0           # via django
+pyopenssl
+
+# Django related packages
+asgiref
+Werkzeug
+django-model-utils>=4.0.0
+django-phonenumber-field
+phonenumbers>=8.11.1
+social-auth-app-django>=3.1.0
+graphene-file-upload>=1.2.2
+django-extensions>=2.2.6
+django-extra-views>=0.12.0
+
+# Tests and Fixtures
+factory-boy==2.12.0
+snapshottest==0.5.1
+
+# Misc
+
+# psycopg2==2.8.4
+psycopg2-binary==2.8.4
+psycopg2==2.8.4
+pycountry==19.8.18
+openpyxl
+xlrd
+ipdb
+
+# API
+graphene-django>=2.7.1
+django-filter
+django-cors-headers

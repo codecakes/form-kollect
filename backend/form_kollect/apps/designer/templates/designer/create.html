@@ -1,0 +1,13 @@
+<h1>Create New Form</h1>
+<form action="{% url 'designer-index' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Create Form">
+</form>
+<br />
+<p>Add more?</p>
+<form action="{% url 'designer-bulk-forms' %}" method="get">
+    {% csrf_token %}
+    {{ more_forms }}
+    <input type="submit" value="Create Bulk Forms">
+</form>
