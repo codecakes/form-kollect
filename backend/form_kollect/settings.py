@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "graphene_django",
     "corsheaders",
+    "phonenumber_field",
     "designer.apps.DesignerConfig",
 ]
 
