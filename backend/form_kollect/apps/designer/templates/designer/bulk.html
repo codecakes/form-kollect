@@ -1,4 +1,4 @@
-<h1>Add Bulk Form</h1>
+<h1>Design Bulk Form</h1>
 <form method="post" action="{% url 'designer-show-bulk-forms' %}">
     {% csrf_token %}
     {{ formset.management_form }}

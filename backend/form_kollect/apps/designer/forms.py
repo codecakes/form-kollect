@@ -1,8 +1,8 @@
 from django import forms
-
+from designer import constants
 
 class CreateForm(forms.Form):
-    choice_field = [("str", "String"), ("int", "Integer"), ("sel", "Select")]
+    choice_field = constants.CHOICE_FIELDS
     field_name = forms.CharField(
         max_length=120,
         min_length=2,
