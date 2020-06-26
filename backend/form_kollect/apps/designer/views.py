@@ -1,5 +1,7 @@
 from django import forms
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import redirect
+from django.shortcuts import render
+from django.shortcuts import reverse
 from django.views.generic import ListView
 
 from . import forms as designer_forms
@@ -64,8 +66,10 @@ def show_bulk_forms(request):
     context = dict(formset=formset)
     return render(request, FORM_SHOW_BULK_TEMPLATE, context=context)
 
+
 def create_form_options(request):
     return render(request, FORM_CREATE_FORM_OPTS_TEMPLATE)
+
 
 # def redirect_bulk_forms(request):
 #     kwargs: dict = {}
@@ -74,4 +78,3 @@ def create_form_options(request):
 #             "designer-bulk-forms",
 #             **dict(submit_name=request.POST.get("edit")),
 #         )
-

@@ -1,5 +1,6 @@
-from django import forms
 from collections import namedtuple
+
+from django import forms
 from phonenumber_field.modelfields import PhoneNumberField
 
 

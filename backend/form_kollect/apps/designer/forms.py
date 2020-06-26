@@ -1,5 +1,6 @@
-from django import forms
 from designer import constants
+from django import forms
+
 
 class CreateForm(forms.Form):
     choice_field = constants.CHOICE_FIELDS

@@ -9,9 +9,9 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
+import glob
 import os
 import sys
-import glob
 
 PROJECT_NAME = "form_kollect"
 
@@ -75,10 +75,7 @@ APP_INSTALLS = [
 ]
 
 INSTALLED_APPS = (
-    DJANGO_DEFAULT_INSTALLS
-    + THIRD_PARTY_INSTALLS
-    + DEBUG_INSTALLS
-    + APP_INSTALLS
+    DJANGO_DEFAULT_INSTALLS + THIRD_PARTY_INSTALLS + DEBUG_INSTALLS + APP_INSTALLS
 )
 
 MIDDLEWARE = [
