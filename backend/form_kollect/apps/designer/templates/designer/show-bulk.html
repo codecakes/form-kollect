@@ -1,10 +1,23 @@
-<h1>Show Bulk Form</h1>
-<form>
-    {% csrf_token %}
-    {{ formset.management_form }}
-    {% for form in formset %}
-        {{ form.as_p }}
-        <br />
-    {% endfor %}
-<!--    <input type="submit" value="Create Bulk Forms">-->
-</form>
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1>Show Bulk Form</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        {% for form in formset %}
+            {{ form }}
+            <br />
+        {% endfor %}
+        <input
+                type="submit"
+                name="edit"
+                value="Change Form"
+                formaction="{% url 'designer-bulk-forms' %}">
+        <input
+                type="submit"
+                name="next"
+                value="Set Options"
+                formaction="{% url 'designer-create-options' %}">
+    </form>
+{% endblock body %}
