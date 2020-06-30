@@ -1,5 +1,23 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <p>Works</p>
+    <h1>Add Bulk Form Options</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for formset_opts in formset_opts_list %}
+            {{ formset_opts.management_form }}
+            {% for form in formset_opts %}
+                {{ form }}
+                <br />
+            {% endfor %}
+        {% endfor %}
+        <hr />
+        {{ formset.management_form }}
+        {% for form in formset %}
+            {{ form.as_p }}
+            <br />
+        {% endfor %}
+        <input type="submit" value="Create New Form">
+    </form>
+
 {% endblock body %}

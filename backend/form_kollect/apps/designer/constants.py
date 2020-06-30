@@ -30,4 +30,13 @@ FIELD_TYPE = dict(
     TEL=FIELD_TUPLE("tel", PhoneNumberField, None),
 )
 
-CHOICE_FIELDS = [(key, val_tuple.input_field) for key, val_tuple in FIELD_TYPE.items()]
+CHOICE_FIELDS = [
+    (field_key, val_tuple.input_field) for field_key, val_tuple in FIELD_TYPE.items()
+]
+
+FIELD_OPTS = dict(
+    filter(
+        lambda field_kv: field_kv[1].field_callable == forms.ChoiceField,
+        FIELD_TYPE.items(),
+    )
+)

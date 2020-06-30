@@ -1,3 +1,5 @@
+from typing import List
+
 from django import forms
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -10,7 +12,7 @@ FORM_LIST_TEMPLATE = "designer/index.html"
 FORM_CREATE_TEMPLATE = "designer/create.html"
 FORM_BULK_TEMPLATE = "designer/bulk.html"
 FORM_SHOW_BULK_TEMPLATE = "designer/show-bulk.html"
-FORM_CREATE_FORM_OPTS_TEMPLATE = "designer/create-form-options.html"
+FORM_ADD_OPTS_TEMPLATE = "designer/add-form-options.html"
 
 
 class FormList(ListView):
@@ -18,7 +20,7 @@ class FormList(ListView):
 
 
 def create(request):
-    """Creates (Bulk)Form Request."""
+    """Creates (Bulk)Form Request. Start Page"""
     context: dict = {}
     msg: str = ""
     error: str = ""
@@ -36,7 +38,7 @@ def create(request):
 
 
 def create_bulk_forms(request):
-    """Design bulk forms."""
+    """Create bulk forms based on Number of Fields in previous Input."""
     error: str = ""
     num_forms: int = 2
     context: dict = {}
@@ -61,14 +63,46 @@ def create_bulk_forms(request):
 
 
 def show_bulk_forms(request):
+    """Review Forms Added. Continue or Re edit from here."""
     FormSet = forms.formset_factory(designer_forms.CreateForm)
     formset = FormSet(request.POST)
-    context = dict(formset=formset)
-    return render(request, FORM_SHOW_BULK_TEMPLATE, context=context)
+    return render(request, FORM_SHOW_BULK_TEMPLATE, context=dict(formset=formset))
 
 
-def create_form_options(request):
-    return render(request, FORM_CREATE_FORM_OPTS_TEMPLATE)
+def add_form_options(request):
+    """Add value options to field types."""
+    context: dict = {}
+    formset_opts_list: List = []
+    # Get received formset data
+    FormSet = forms.formset_factory(designer_forms.CreateForm)
+    formset: FormSet = FormSet(request.POST)
+    # Get list of form data dictionary
+    cleaned_forms_data = formset.cleaned_data
+    # Filter out only selectable fields dictionary
+    selectable_fields = filter(
+        lambda clean_dict: clean_dict["field_type"]
+        in designer_forms.constants.FIELD_OPTS,
+        cleaned_forms_data,
+    )
+    # Create multiple formssets for selectable fields values.
+    for idx, each_selectable_field in enumerate(selectable_fields):
+        # Create Formset for Values in Selectable Options
+        FormOptsSet = forms.formset_factory(
+            designer_forms.CreateFormOpts,
+            extra=each_selectable_field["num_values"],
+            formset=designer_forms.CreateFormOptsBaseSet,
+        )
+        formset_opts_list += [
+            FormOptsSet(
+                prefix=f"formset-{idx}",
+                form_kwargs=dict(
+                    field_name=each_selectable_field["field_name"],
+                    field_type=each_selectable_field["field_type"],
+                ),
+            )
+        ]
+    context.update(dict(formset=formset, formset_opts_list=formset_opts_list))
+    return render(request, FORM_ADD_OPTS_TEMPLATE, context=context)
 
 
 # def redirect_bulk_forms(request):

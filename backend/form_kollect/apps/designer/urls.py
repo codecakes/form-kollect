@@ -8,8 +8,8 @@ urlpatterns = [
     path("show-bulk-forms/", views.show_bulk_forms, name="designer-show-bulk-forms"),
     # path("redirect-bulk-forms/", views.redirect_bulk_forms, name="redirect-bulk-forms"),
     path(
-        "create-form-options/",
-        views.create_form_options,
-        name="designer-create-options",
+        "add-form-options/",
+        views.add_form_options,
+        name="add-form-options",
     ),
 ]
