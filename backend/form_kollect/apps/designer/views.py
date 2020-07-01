@@ -13,6 +13,7 @@ FORM_CREATE_TEMPLATE = "designer/create.html"
 FORM_BULK_TEMPLATE = "designer/bulk.html"
 FORM_SHOW_BULK_TEMPLATE = "designer/show-bulk.html"
 FORM_ADD_OPTS_TEMPLATE = "designer/add-form-options.html"
+FORM_VIEW_TEMPLATE = "designer/view-form.html"
 
 
 class FormList(ListView):
@@ -62,7 +63,7 @@ def create_bulk_forms(request):
     return render(request, FORM_BULK_TEMPLATE, context=context)
 
 
-def show_bulk_forms(request):
+def edit_bulk_forms(request):
     """Review Forms Added. Continue or Re edit from here."""
     FormSet = forms.formset_factory(designer_forms.CreateForm)
     formset = FormSet(request.POST)
@@ -70,7 +71,7 @@ def show_bulk_forms(request):
 
 
 def add_form_options(request):
-    """Add value options to field types."""
+    """Add values to options of selectable field types."""
     context: dict = {}
     formset_opts_list: List = []
     # Get received formset data
@@ -103,6 +104,11 @@ def add_form_options(request):
         ]
     context.update(dict(formset=formset, formset_opts_list=formset_opts_list))
     return render(request, FORM_ADD_OPTS_TEMPLATE, context=context)
+
+
+def view_bulk_form(request):
+    "View the newly created form."
+    return render(request, FORM_VIEW_TEMPLATE)
 
 
 # def redirect_bulk_forms(request):

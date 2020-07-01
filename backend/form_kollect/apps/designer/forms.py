@@ -39,7 +39,6 @@ class CreateFormOpts(forms.Form):
         min_length=2,
         widget=forms.TextInput,
         required=False,
-        label="Field Options Value",
     )
 
 
@@ -50,3 +49,14 @@ class CreateFormOptsBaseSet(forms.BaseFormSet):
         self.field_name = kwargs['form_kwargs'].pop('field_name')
         self.field_type = kwargs['form_kwargs'].pop('field_type')
         super().__init__(*args, **kwargs)
+        self.__set_bulk_field_attrs()
+
+    def __set_bulk_field_attrs(self):
+        """Generic html attributes bulk key value update for each form."""
+        for form in self:
+            label = f"Field Options Value for {self.field_name}"
+            form.fields['field_opts_value'].widget.attrs.update({
+                "name": label,
+                "placeholder": f"Field type is {self.field_type}",
+            })
+            form.fields['field_opts_value'].label = label
