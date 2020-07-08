@@ -1,5 +1,21 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <p> WORKS </p>
+    <h1>Form Created</h1>
+    <section id="rendered-form">
+        {{ formset.management_form }}
+        {% for form in formset %}
+            {{ form.as_p }}
+            <br />
+        {% endfor %}
+    </section>
+    <section id="opts-form">
+<!--        {% for formset_opts in formset_opts_list %}-->
+        {{ formset_opts.management_form }}
+        {% for form in formset_opts %}
+            {{ form.as_p }}
+            <br />
+        {% endfor %}
+<!--        {% endfor %}-->
+    </section>
 {% endblock body %}

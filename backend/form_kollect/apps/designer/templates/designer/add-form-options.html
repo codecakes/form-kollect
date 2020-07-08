@@ -12,13 +12,15 @@
             {% endfor %}
         {% endfor %}
         <hr />
-        <div hidden>
-            {{ formset.management_form }}
-            {% for form in formset %}
-                {{ form.as_p }}
-                <br />
-            {% endfor %}
-        </div>
+        {{ formset.management_form }}
+        {% for form in formset %}
+            {{ form }}
+            <br />
+        {% endfor %}
+        <br />
+        {% for prefix_val in prefix_list %}
+            <input type="text" name="{{ prefix_id }}" value="{{ prefix_val }}">
+        {% endfor %}
         <input type="submit" value="Create New Form">
     </form>
 
