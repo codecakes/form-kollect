@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
+import glob
 import os
 import sys
 
@@ -35,6 +36,11 @@ ALLOWED_HOSTS = [
     os.getenv("DOMAIN_NAME", ""),
 ]
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+    os.getenv("DJANGO_ALLOWED_HOST", "localhost"),
+]
+
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
@@ -44,20 +50,36 @@ CACHES = {
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_DEFAULT_INSTALLS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+]
+
+THIRD_PARTY_INSTALLS = [
     "django_extensions",
     "graphene_django",
     "corsheaders",
+    "phonenumber_field",
+]
+
+DEBUG_INSTALLS = [
+    "debug_toolbar",
+]
+
+APP_INSTALLS = [
     "designer.apps.DesignerConfig",
 ]
 
+INSTALLED_APPS = (
+    DJANGO_DEFAULT_INSTALLS + THIRD_PARTY_INSTALLS + DEBUG_INSTALLS + APP_INSTALLS
+)
+
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -66,15 +88,17 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
 ROOT_URLCONF = "form_kollect.urls"
 
 # Always use IPython for shell_plus
 SHELL_PLUS = "ipython"
 
+TEMPALATES_DIR = glob.glob(os.path.join(CUR_DIR, "apps", "*", "templates", "*"))
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": TEMPALATES_DIR,
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

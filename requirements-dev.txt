@@ -1,5 +1,8 @@
 -r requirements.txt
 
+# Debug related
+django-debug-toolbar>=1.11
+ipdb
 # Automated checks related
 pip
 pre-commit

@@ -1,8 +1,4 @@
 django==3.0.7             # via -r requirements.in (line 1)
-python-dotenv==0.11.0     # via -r requirements.in (line 3)
-pytz==2019.3              # via django
-sqlparse==0.3.0           # via django
-pyopenssl
 
 # Django related packages
 asgiref
@@ -20,14 +16,17 @@ factory-boy==2.12.0
 snapshottest==0.5.1
 
 # Misc
+python-dotenv==0.11.0     # via -r requirements.in (line 3)
+pytz==2019.3              # via django
+sqlparse==0.3.0           # via django
+pyopenssl
+pycountry==19.8.18
+openpyxl
+xlrd
 
 # psycopg2==2.8.4
 psycopg2-binary==2.8.4
 psycopg2==2.8.4
-pycountry==19.8.18
-openpyxl
-xlrd
-ipdb
 
 # API
 graphene-django>=2.7.1
